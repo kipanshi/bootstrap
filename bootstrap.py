@@ -117,7 +117,7 @@ def update(**kwargs):
         url = urllib2.urlopen(request, timeout=5)
         etag = url.headers.get('ETag')
     except urllib2.HTTPError, e:
-        if e.getcode() != 412:
+        if e.getcode() not in (304, 412):
             raise
         # We're up to date -- 412 precondition failed
         etag = current_etag
